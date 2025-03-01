@@ -76,10 +76,12 @@ crc16:  CRC16 result of the entire command packet (excluding the CRC itself)
 | Parameter | file_name[16] | mode |
 | Description | Area name | Read mode app_dir_head: set to 0 uboot_zone: set to 0 |
 
+```c
 struct {
-u8 file_name[16];
-u8 mode;
+    u8 file_name[16];
+    u8 mode;
 } init;
+```
 
 - **Device Response Parameters**
 - **Direction: Device->Host**
@@ -89,12 +91,14 @@ u8 mode;
 | Parameter | upgrade_addr | upgrade_len | upgrade_eoffset | flash_alignsize |
 | Description | Area address | Area length | Device offset length | Alignment length |
 
+```c
 struct {
-u32 upgrade_addr;
-u32 upgrade_len;
-u32 upgrade_eoffset;
-u32 flash_alignsize;
+    u32 upgrade_addr;
+    u32 upgrade_len;
+    u32 upgrade_eoffset;
+    u32 flash_alignsize;
 } init;
+```
 
 ### 2.JL_SU_CMD_DEVICE_CHECK
 
@@ -110,9 +114,11 @@ u32 flash_alignsize;
 | Parameter | sdk_id |
 | Description | Host sdk id |
 
+```c
 struct {
-u32 sdk_id;
-}device_check;
+    u32 sdk_id;
+} device_check;
+```
 
 - **Device Response Parameters**
 - **Direction: Device->Host**
@@ -122,12 +128,13 @@ u32 sdk_id;
 | Parameter | vid | pid | sdk_id |
 | Description | Device vid | Device pid | Device sdk id |
 
+```c
 struct {
-u8 vid[4];
-u8 pid[16];
-u32 sdk_id;
-}device_check;
-
+    u8 vid[4];
+    u8 pid[16];
+    u32 sdk_id;
+} device_check;
+```
 
 
 ### 3.JL_SU_CMD_ERASE
@@ -144,13 +151,15 @@ u32 sdk_id;
 | Parameter | address | type |
 | Description | Erase address | Erase type |
 
+```c
 #define JL_ERASE_TYPE_PAGE 1 //page erase
 #define JL_ERASE_TYPE_SECTOR 2 //sector
 #define JL_ERASE_TYPE_BLOCK 3 //block
 struct {
-u32 address;
-u32 type;
+    u32 address;
+    u32 type;
 } erase;
+```
 
 - **Device response parameters: None (response status bit rsp_status replies)**
 - **Direction: Device -> Host**
@@ -170,11 +179,13 @@ u32 type;
 | Parameter | address | data_length | data[0] |
 | Description | Write address | Data length | Data |
 
+```c
 struct {
-u32 address; // FLASH address to be written
-u32 data_length; // Write length
-u8 data[0]; // Data to be written
+    u32 address; // FLASH address to be written
+    u32 data_length; // Write length
+    u8 data[0]; // Data to be written
 } write;
+```
 
 - **Device response parameters: None (response status bit rsp_status replies)**
 - **Direction: Device -> Host**
@@ -193,11 +204,13 @@ u8 data[0]; // Data to be written
 | Parameter | address | len | block_size |
 | Description | Address to be verified | Total length of verification | Length of data verification per block |
 
+```c
 struct {
-u32 address;
-u32 len;
-u32 block_size;
+    u32 address;
+    u32 len;
+    u32 block_size;
 } crc_list;
+```
 
 - **Device response parameters**
 - **Direction: Device -> Host**
@@ -207,9 +220,11 @@ u32 block_size;
 | Parameter | crc[0] |
 | Description | CRC list (composed of len/block_size CRC16) |
 
+```c
 struct {
-u16 crc[0];
+    u16 crc[0];
 } crc_list;
+```
 
 ### 6.JL_SU_CMD_EX_KEY
 
@@ -225,9 +240,12 @@ u16 crc[0];
 | | secret_key |
 | Description | Key |
 
+```c
 struct {
-u32 secret_key;
+    u32 secret_key;
 } ex_key;
+```
+
 - **Device response parameters**
 -
 - **Direction: Device -> Host**
@@ -237,11 +255,13 @@ u32 secret_key;
 | | rand | data_length | data[0] |
 | Description | Random number | Key length | Key |
 
+```c
 struct {
-u16 rand;
-u16 data_length;
-u8 data[0];
+    u16 rand;
+    u16 data_length;
+    u8 data[0];
 } ex_key;
+```
 
 ### 7.JL_SU_CMD_REBOOT
 
